@@ -1,0 +1,136 @@
+:root {
+  --primary-blue: #007bff;
+  --secondary-blue: #0056b3;
+  --tertiary-blue: #cce5ff;
+  --text-color: #333;
+  --background-color: #e0f7ff;
+  --progress-bar-height: 5px;
+  --progress-bar-bg-color: #ddd;
+  --progress-color: #4CAF50;
+  --image-max-width: 100%; /* 图片最大宽度 */
+  --image-height-auto: auto; /* 图片高度自动 */
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-image: linear-gradient(to bottom, var(--primary-blue), var(--background-color)); /* 背景渐变 */
+}
+
+header {
+  background-color: var(--primary-blue);
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+main {
+  flex: 1;
+  padding: 2em;
+  background-color: #fff;
+}
+
+article {
+  margin-bottom: 2em;
+  padding: 2em;
+  border-left: 4px solid var(--primary-blue);
+  border-radius: 0.5em;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+article h2 {
+  color: var(--secondary-blue);
+  margin-bottom: 1em;
+}
+
+footer {
+  background-color: var(--primary-blue);
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+}
+
+.music-player {
+  display: flex;
+  align-items: center;
+  margin-top: 2em;
+  background-color: var(--tertiary-blue);
+  padding: 1em;
+  border-radius: 0.5em;
+}
+
+.progress-bar {
+  width: 100%;
+  height: var(--progress-bar-height);
+  background-color: var(--progress-bar-bg-color);
+  flex: 1;
+  margin: 0 1em;
+  border-radius: 0.5em;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: var(--progress-color);
+  border-radius: 0.5em;
+  transition: width 0.5s ease-in-out;
+}
+
+/* 图片样式 */
+img.responsive-image {
+  max-width: var(--image-max-width);
+  height: var(--image-height-auto);
+  display: block; /* 去除图片下方的空白空间 */
+  margin-left: auto; /* 水平居中 */
+  margin-right: auto;
+}
+
+button.play-btn, button.pause-btn {
+  background-color: var(--primary-blue);
+  color: white;
+  border: none;
+  padding: 0.5em 1.5em;
+  margin: 0 0.5em;
+  border-radius: 0.5em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
+}
+
+button.play-btn:hover, button.pause-btn:hover {
+  background-color: lighten(var(--primary-blue), 10%);
+}
+
+button.pause-btn {
+  background-color: var(--secondary-blue);
+}
+
+button.pause-btn:hover {
+  background-color: lighten(var(--secondary-blue), 10%);
+}
+
+@media (max-width: 600px) {
+  header, main, footer {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+
+  .music-player {
+    flex-direction: column;
+    align-items: flex-start; /* 按钮和进度条在小屏幕上垂直排列 */
+  }
+
+  .play-btn, .pause-btn {
+    margin-bottom: 0.5em; /* 按钮之间添加间隔 */
+  }
+}
