@@ -1,35 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>limenglin</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>跑步计时器</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .timer {
+    font-size: 2em;
+    margin: 20px;
+  }
+  .controls {
+    margin: 20px;
+  }
+  .button {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+  }
+</style>
 </head>
 <body>
-    <header>
-        <h1>爱佳购物分享</h1>
-        <p>测试</p>
-    </header>
-    <main>
-        <article>
-            <h2>50元/斤</h2>
-            <p>仓库余量：100斤</p>
-            <p>纯天然中蜂蜜，欢迎采购！</p>  
-            <img src="IMG_20240324_124057.jpg" alt="照片" class="responsive-image">
-        </article>
-        <!-- ... 其他文章内容 ... -->
-    </main>
-    <footer>
-        <p>联系方式：a265263b@outlook.com</p>
-    </footer>
-    <div class="music-player">
-        <button id="playBtn" class="play-btn" onclick="playAudio()"> </button>
-        <button id="pauseBtn" class="pause-btn" onclick="pauseAudio()"> </button>
-        <div class="progress-bar">
-            <div class="progress" id="myProgress"></div>
-        </div>
-    </div>
-    <script src="script.js"></script>
+
+<h1>今天你约跑了吗？</h1>
+<p>一起跑个步吧！</p>
+
+<div class="timer" id="timer">00:00:00</div>
+<div class="controls">
+  <button class="button" onclick="startTimer()">开始</button>
+  <button class="button" onclick="stopTimer()">暂停</button>
+  <button class="button" onclick="resetTimer()">重置</button>
+  <button class="button" onclick="countLap()">记次</button>
+</div>
+
+<script>
+  var timerInterval;
+  var startTime;
+  var elapsedTime = 0;
+  var lapTimes = [];
+
+  function startTimer() {
+    startTime = new Date().getTime();
+    timerInterval = setInterval(updateTimer, 100);
+  }
+
+  function stopTimer() {
+    clearInterval(timerInterval);
+    var endTime = new Date().getTime();
+    elapsedTime = (endTime - startTime) / 1000;
+  }
+
+  function resetTimer() {
+    clearInterval(timerInterval);
+    elapsedTime = 0;
+    lapTimes = [];
+    document.getElementById('timer').textContent = '00:00:00';
+  }
+
+  function updateTimer() {
+    var currentTime = new Date().getTime();
+    elapsedTime = (currentTime - startTime) / 1000;
+    document.getElementById('timer').textContent = formatTime(elapsedTime);
+  }
+
+  function formatTime(time) {
+    var hours = Math.floor(time / 3600);
+    var minutes = Math.floor((time % 3600) / 60);
+    var seconds = Math.floor(time % 60);
+    return (hours < 10 ? '0' + hours : hours) + ':' +
+           (minutes < 10 ? '0' + minutes : minutes) + ':' +
+           (seconds < 10 ? '0' + seconds : seconds);
+  }
+
+  function countLap() {
+    stopTimer();
+    var lapTime = formatTime(elapsedTime);
+    lapTimes.push(lapTime);
+    alert('当前圈数时间: ' + lapTime + '\n总圈数时间: ' + lapTimes.join(', '));
+    resetTimer();
+  }
+</script>
+
 </body>
 </html>
